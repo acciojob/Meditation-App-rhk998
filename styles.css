@@ -11,11 +11,11 @@ html, body {
 body {
   overflow: hidden;
   font-family: Arial, sans-serif;
-  background-color: #333; /* visible fallback if video fails */
+  background-color: #333;
 }
 
 /* App container covers all viewport */
-#app {
+.app {
   height: 100vh;
   width: 100%;
   position: relative;
@@ -36,41 +36,32 @@ body {
   object-fit: cover;
 }
 
-/* Left: vertical time options */
-/* Time picker: left-aligned column with generous spacing */
-
-.time-picker {
+/* Time picker (left side) */
+.time-select {
   position: absolute;
-  left: 24px;           
-  top: 50%;              
+  left: 24px;
+  top: 50%;
   transform: translateY(-50%);
-  width: 240px;           
+  width: 240px;
   z-index: 12;
-  pointer-events: auto;
-  display: flex;
-  align-items: stretch;
-}
-
-#time-select {
   display: flex;
   flex-direction: column;
-  gap: 108px;               
-  align-items: center;     
+  gap: 108px;
 }
 
-#time-select button {
-  width: 100%;               
+.time-select button {
+  width: 0%;
   padding: 14px 18px;
   border: 2px solid #fff;
   background: rgba(0, 0, 0, 0.25);
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
-  text-align: left;           
+  text-align: left;
   cursor: pointer;
 }
 
-#time-select button:hover {
+.time-select button:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
@@ -87,13 +78,13 @@ body {
   color: white;
   z-index: 10;
   text-align: center;
-  pointer-events: none; /* allow clicks to pass to nested elements unless explicitly enabled */
+  pointer-events: none;
 }
 .play-area {
   position: relative;
   width: 320px;
   height: 320px;
-  pointer-events: auto; /* enable interactions inside play area if needed */
+  pointer-events: auto;
 }
 .play-area svg {
   position: absolute;
@@ -118,9 +109,7 @@ body {
   z-index: 11;
 }
 
-/* Right: floating sound options */
-
-/* Right: floating sound options - spaced around (not tight) */
+/* Sound picker (right side) */
 .sound-picker {
   position: absolute;
   right: 20px;
@@ -130,11 +119,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 108px;            
-  padding: 12px;         
-  pointer-events: auto;
+  gap: 108px;
+  padding: 12px;
 }
-
 .sound-picker button {
   width: 72px;
   height: 72px;
@@ -147,7 +134,6 @@ body {
   padding: 0;
   box-shadow: 0 4px 12px rgba(0,0,0,.25);
 }
-
 .sound-picker button img {
   width: 40px;
   height: 40px;
@@ -155,9 +141,9 @@ body {
 .sound-picker .rain { background: #3a74c9; }
 .sound-picker .beach { background: #c94d3a; }
 
-/* Optional enhancements for better layering on small screens */
+/* Mobile adjustments */
 @media (max-width: 800px) {
-  #time-select button { min-width: 140px; font-size: 14px; }
+  .time-select button { min-width: 140px; font-size: 14px; }
   .play-area { width: 280px; height: 280px; }
   .time-display { font-size: 28px; }
 }

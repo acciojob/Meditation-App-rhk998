@@ -43,39 +43,21 @@ const app = () => {
   });
 
   // Change time buttons
-  // timeButtons.forEach(button => {
-  //   button.addEventListener("click", function() {
-  //     fakeDuration = parseInt(this.getAttribute("data-time"));
-		// song.pause();
-  //   video.pause();
-  //     song.currentTime = 0;
-  //     updateTimeDisplay(fakeDuration);
-  //     outline.style.strokeDashoffset = outlineLength;
-  //     isPlaying = false; // reset play state
-  //     playBtn.src = "./svg/play.svg"; // ensure play icon
-  //   });
-  // });
-
-	timeButtons.forEach(button => {
-  button.addEventListener("click", function () {
-    // Get new duration
-    fakeDuration = parseInt(this.getAttribute("data-time"));
-
-    // 🔴 Stop playback first
-    song.pause();
+  timeButtons.forEach(button => {
+    button.addEventListener("click", function() {
+      fakeDuration = parseInt(this.getAttribute("data-time"));
+		song.pause();
     video.pause();
-    song.currentTime = 0;
-    video.currentTime = 0;
-
-    // 🔴 Reset circle + UI
-    outline.style.strokeDashoffset = outlineLength;
-    playBtn.src = "./svg/play.svg";
-    isPlaying = false;
-
-    // 🔴 Finally update display (AFTER pausing)
-    updateTimeDisplay(fakeDuration);
+      song.currentTime = 0;
+		video.currentTime = 0;
+      outline.style.strokeDashoffset = outlineLength;
+      playBtn.src = "./svg/play.svg"; // ensure play icon
+      isPlaying = false; // reset play state
+      updateTimeDisplay(fakeDuration);
+    });
   });
-});
+
+	
 
 
   // Change sound & video

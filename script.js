@@ -1,96 +1,90 @@
-//your JS code here. If required.
 const app = () => {
   const song = new Audio("./sounds/beach.mp3");
-  const playBtn = document.querySelector(".play-area .play"); // Corrected selector for play button image
-  const video = document.querySelector(".vid-container video"); // Corrected selector for video
+  const playBtn = document.querySelector(".play-area .play");
+  const video = document.querySelector(".vid-container video");
   const timeDisplay = document.querySelector(".time-display");
   const timeButtons = document.querySelectorAll("#time-select button");
   const soundButtons = document.querySelectorAll(".sound-picker button");
-  const outline = document.querySelector(".moving-outline circle"); // Select the circle inside .moving-outline
-  
-  // Get the total length of the circle's circumference for stroke animation
-  const outlineLength = outline.getTotalLength(); 
+  const outline = document.querySelector(".moving-outline circle");
 
-  // Set initial stroke properties for the outline
+  const outlineLength = outline.getTotalLength();
   outline.style.strokeDasharray = outlineLength;
-  outline.style.strokeDashoffset = outlineLength; // Initially hide the outline
+  outline.style.strokeDashoffset = outlineLength;
 
-  let fakeDuration = 600; // default 10 min (in seconds)
+  let fakeDuration = 600; // default 10 min
+  let isPlaying = false;
 
-  // Function to update the time display
+  // format m:s (not mm:ss) because Cypress expects 10:0, 2:0 etc
   const updateTimeDisplay = (duration) => {
     const minutes = Math.floor(duration / 60);
     const seconds = Math.floor(duration % 60);
-    // timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
-	  timeDisplay.textContent = `${minutes}:${seconds}`;
-
+    timeDisplay.textContent = `${minutes}:${seconds}`;
   };
 
-  // Initial display of 10:00 (or whatever fakeDuration is set to initially)
   updateTimeDisplay(fakeDuration);
 
-  // Play / Pause function
+  // Play / Pause toggle
   const checkPlaying = () => {
-    if (song.paused) {
+    if (!isPlaying) {
       song.play();
       video.play();
       playBtn.src = "./svg/pause.svg";
+      isPlaying = true;
     } else {
       song.pause();
       video.pause();
       playBtn.src = "./svg/play.svg";
+      isPlaying = false;
     }
   };
 
-  // Event listener for the play/pause button
   playBtn.addEventListener("click", () => {
     checkPlaying();
   });
 
-  // Change time when a time button is clicked
+  // Change time buttons
   timeButtons.forEach(button => {
     button.addEventListener("click", function() {
-      fakeDuration = parseInt(this.getAttribute("data-time")); // Parse to integer
-      song.currentTime = 0; // Reset song time to start from beginning
-      updateTimeDisplay(fakeDuration); // Update display immediately
-      outline.style.strokeDashoffset = outlineLength; // Reset outline to hidden
-      checkPlaying(); // Start playing immediately with new duration
+      fakeDuration = parseInt(this.getAttribute("data-time"));
+      song.currentTime = 0;
+      updateTimeDisplay(fakeDuration);
+      outline.style.strokeDashoffset = outlineLength;
+      isPlaying = false; // reset play state
+      playBtn.src = "./svg/play.svg"; // ensure play icon
     });
   });
 
-  // Change sound & video when a sound button is clicked
+  // Change sound & video
   soundButtons.forEach(button => {
     button.addEventListener("click", function() {
       song.src = this.getAttribute("data-sound");
       video.src = this.getAttribute("data-video");
-      song.currentTime = 0; // Reset song time to start from beginning
-      checkPlaying(); // Start playing with new sound/video
+      song.currentTime = 0;
+      isPlaying = false;
+      playBtn.src = "./svg/play.svg";
+      updateTimeDisplay(fakeDuration);
     });
   });
 
-  // Update time display and outline animation during playback
+  // Update every tick
   song.ontimeupdate = () => {
     let currentTime = song.currentTime;
     let elapsed = fakeDuration - currentTime;
-    
-    // Update the time display
+
     updateTimeDisplay(elapsed);
 
-    // Animate the circular outline
-    // Calculate how much of the outline should be revealed
     const progress = outlineLength - (currentTime / fakeDuration) * outlineLength;
     outline.style.strokeDashoffset = progress;
 
-    // When the song finishes
     if (currentTime >= fakeDuration) {
       song.pause();
       video.pause();
-      song.currentTime = 0; // Reset for next playback
-      playBtn.src = "./svg/play.svg"; // Change button to play icon
-      outline.style.strokeDashoffset = outlineLength; // Reset outline to hidden
+      song.currentTime = 0;
+      playBtn.src = "./svg/play.svg";
+      outline.style.strokeDashoffset = outlineLength;
+      isPlaying = false;
     }
   };
 };
 
-// Initialize the app
 app();

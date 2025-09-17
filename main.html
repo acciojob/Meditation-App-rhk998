@@ -1,16 +1,54 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meditation App</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <div id="app">
+    <!-- Video background -->
+    <div class="vid-container">
+      <video loop src="./video/beach.mp4"></video>
+    </div>
 
+    <!-- Time picker (left side) -->
+    <aside class="time-picker" aria-label="Time options">
+      <div id="time-select">
+        <button data-time="120">2 Minutes</button>
+        <button data-time="300">5 Minutes</button>
+        <button data-time="600">10 Minutes</button>
+      </div>
+    </aside>
+
+    <!-- Center stage: timer and play area -->
+    <section class="player-container" aria-label="Timer and controls">
+      <div class="play-area">
+        <svg class="track-outline" width="300" height="300" viewBox="0 0 300 300">
+          <circle cx="150" cy="150" r="140" stroke="#ccc" stroke-width="8" fill="none"></circle>
+        </svg>
+
+        <svg class="moving-outline" width="300" height="300" viewBox="0 0 300 300">
+          <circle cx="150" cy="150" r="140" stroke="#00d7ff" stroke-width="8" fill="none"></circle>
+        </svg>
+
+        <img src="./svg/play.svg" alt="play" class="play" />
+      </div>
+      <h1 class="time-display" aria-live="polite">10:00</h1>
+    </section>
+
+    <!-- Sound picker (right side) -->
+    <nav class="sound-picker" aria-label="Sound options">
+      <button class="rain" data-sound="./sounds/rain.mp3" data-video="./video/rain.mp4" title="Rain">
+        <img src="./svg/rain.svg" alt="rain" />
+      </button>
+      <button class="beach" data-sound="./sounds/beach.mp3" data-video="./video/beach.mp4" title="Beach">
+        <img src="./svg/beach.svg" alt="beach" />
+      </button>
+    </nav>
+</div>
+
+<script src="script.js"></script>
 </body>
-
 </html>

@@ -1,1 +1,163 @@
-/*  your css code here. If applicable */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #333; /* visible fallback if video fails */
+}
+
+/* App container covers all viewport */
+#app {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Fullscreen video background */
+.vid-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.vid-container video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Left: vertical time options */
+/* Time picker: left-aligned column with generous spacing */
+
+.time-picker {
+  position: absolute;
+  left: 24px;           
+  top: 50%;              
+  transform: translateY(-50%);
+  width: 240px;           
+  z-index: 12;
+  pointer-events: auto;
+  display: flex;
+  align-items: stretch;
+}
+
+#time-select {
+  display: flex;
+  flex-direction: column;
+  gap: 108px;               
+  align-items: center;     
+}
+
+#time-select button {
+  width: 100%;               
+  padding: 14px 18px;
+  border: 2px solid #fff;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: left;           
+  cursor: pointer;
+}
+
+#time-select button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Center stage (timer circle) */
+.player-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 10;
+  text-align: center;
+  pointer-events: none; /* allow clicks to pass to nested elements unless explicitly enabled */
+}
+.play-area {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  pointer-events: auto; /* enable interactions inside play area if needed */
+}
+.play-area svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.play-area .play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+.time-display {
+  margin-top: 18px;
+  font-size: 34px;
+  font-weight: 600;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  z-index: 11;
+}
+
+/* Right: floating sound options */
+
+/* Right: floating sound options - spaced around (not tight) */
+.sound-picker {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 108px;            
+  padding: 12px;         
+  pointer-events: auto;
+}
+
+.sound-picker button {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+
+.sound-picker button img {
+  width: 40px;
+  height: 40px;
+}
+.sound-picker .rain { background: #3a74c9; }
+.sound-picker .beach { background: #c94d3a; }
+
+/* Optional enhancements for better layering on small screens */
+@media (max-width: 800px) {
+  #time-select button { min-width: 140px; font-size: 14px; }
+  .play-area { width: 280px; height: 280px; }
+  .time-display { font-size: 28px; }
+}

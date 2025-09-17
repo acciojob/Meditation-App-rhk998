@@ -21,7 +21,9 @@ const app = () => {
   const updateTimeDisplay = (duration) => {
     const minutes = Math.floor(duration / 60);
     const seconds = Math.floor(duration % 60);
-    timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    // timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+	  timeDisplay.textContent = `${minutes}:${seconds}`;
+
   };
 
   // Initial display of 10:00 (or whatever fakeDuration is set to initially)

@@ -46,6 +46,8 @@ const app = () => {
   timeButtons.forEach(button => {
     button.addEventListener("click", function() {
       fakeDuration = parseInt(this.getAttribute("data-time"));
+		song.pause();
+    video.pause();
       song.currentTime = 0;
       updateTimeDisplay(fakeDuration);
       outline.style.strokeDashoffset = outlineLength;
